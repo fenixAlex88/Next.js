@@ -4,19 +4,33 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "debug": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "slint": "stylelint \"**/*.css\" --fix"
   },
   "dependencies": {
     "@types/node": "20.4.8",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
-    "eslint": "8.46.0",
+    "classnames": "^2.3.2",
     "eslint-config-next": "13.4.12",
+    "eslint-plugin-react-hooks": "^5.0.0-canary-7118f5dd7-20230705",
     "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^8.0.1",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.46.0",
+    "stylelint": "^15.10.2",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-order": "^6.0.3",
+    "stylelint-order-config-standard": "^0.1.3"
   }
 }
