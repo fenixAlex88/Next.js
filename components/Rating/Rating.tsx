@@ -7,8 +7,9 @@ import { useEffect, useState, KeyboardEvent } from 'react';
 export const Rating = ({ isEditable = false, rating, setRating, ...props }: RatingProps): JSX.Element => {
   const [ratingArray, setRatingArray] = useState<JSX.Element[]>(new Array(5).fill(<></>));
 
-  useEffect(()=>{
+  useEffect(() => {
     construstRating(rating);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rating]);
 
   const construstRating = (currentRating: number) => {
