@@ -4,8 +4,14 @@ import axios from "axios";
 import { MenuItem } from "@/interfaces/menu.intervace";
 import { firstLevelMenu } from "@/helpers/helpers";
 import { ParsedUrlQuery } from "querystring";
+import { useContext, useEffect } from "react";
+import { AppContext } from "@/context/app.context";
 
-function Type({ firstCategory }: TypeProps): JSX.Element {
+function Type({ menu, firstCategory }: TypeProps): JSX.Element {
+  const { setMenu } = useContext(AppContext);
+  useEffect(() => {
+    setMenu && setMenu(menu);
+  }, [menu, setMenu]);
   return <>Type: {firstCategory}</>;
 }
 
@@ -30,16 +36,18 @@ export const getStaticProps: GetStaticProps<TypeProps> = async ({
     return {
       notFound: true,
     };
+  const firstCategory = firstCategoryItem.id;
   const { data: menu } = await axios.post<MenuItem[]>(
     process.env.NEXT_PUBLIC_DOMAIN + "/api/top-page/find",
     {
-      firstCategory: firstCategoryItem.id,
+      firstCategory,
     }
   );
+
   return {
     props: {
       menu,
-      firstCategory: firstCategoryItem.id,
+      firstCategory,
     },
   };
 };
