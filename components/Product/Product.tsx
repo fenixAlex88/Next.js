@@ -1,20 +1,26 @@
 import { ProductProps } from "./Product.props";
 import styles from "./Product.module.css";
-import { Button, Card, Divider, Rating, Tag } from "..";
-import { priceRu } from "../../helpers/helpers";
+import { Button, Card, Divider, Rating, Review, ReviweForm, Tag } from "..";
+import { declOfNum, priceRu } from "../../helpers/helpers";
+import Image from "next/image";
+import cn from 'classnames';
+import { useState } from 'react';
 
 export const Product = ({
   product,
   className,
   ...props
 }: ProductProps): JSX.Element => {
+  const [isReviewOpend, setIsReviewOpend] = useState<boolean>(false);
   return (
     <div className={className} {...props}>
       <Card className={styles.product}>
         <div className={styles.logo}>
-          <img
+          <Image
             src={process.env.NEXT_PUBLIC_DOMAIN + product.image}
             alt={product.title}
+            width={70}
+            height={70}
           />
         </div>
         <div className={styles.title}>{product.title}</div>
@@ -41,10 +47,19 @@ export const Product = ({
         </div>
         <div className={styles.priceTitle}>цена</div>
         <div className={styles.creditTitle}>кредит</div>
-        <div className={styles.rateTitle}>{product.reviewCount} отзывов</div>
+        <div className={styles.rateTitle}>{product.reviewCount} {declOfNum(product.reviewCount, ["отзыв", "отзыва", "отзывов"])}</div>
         <Divider className={styles.hr} />
         <div className={styles.description}>{product.description}</div>
-        <div className={styles.features}>фичи</div>
+        <div className={styles.features}>
+          {product.characteristics.map(c => (
+            <div className={styles.characteristic} key={c.name}>
+              <span className={styles.characteristicsName}>{c.name}</span>
+              <span className={styles.characteristicsDots}></span>
+              <span className={styles.characteristicsValue}>{c.value}</span>
+
+            </div>
+          ))}
+        </div>
         <div className={styles.advBlock}>
           {product.advantages && (
             <div className={styles.advantages}>
@@ -59,17 +74,30 @@ export const Product = ({
             </div>
           )}
         </div>
-        <Divider className={styles.hr} />
+        <Divider className={cn(styles.hr, styles.hr2)} />
         <div className={styles.actions}>
           <Button appearance="primary">Узнать подробнее</Button>
           <Button
             appearance="ghost"
-            arrow={"right"}
+            arrow={isReviewOpend ? "down" : "right"}
             className={styles.reviewButton}
+            onClick={() => setIsReviewOpend(!isReviewOpend)}
           >
             Читать отзывы
           </Button>
         </div>
+      </Card>
+      <Card color='blue' className={cn(styles.reviews, {
+        [styles.opend]: isReviewOpend,
+        [styles.closed]: !isReviewOpend
+      })}>
+        {product.reviews.map(r=>(
+          <>
+            <Review key={r._id} review={r} />
+            <Divider />
+          </>
+        ))}
+        <ReviweForm productId={product._id}/>
       </Card>
     </div>
   );
