@@ -13,7 +13,6 @@
 }
 
 .header { 
-	display: none;
 	grid-area: header; 
 }
 
@@ -30,11 +29,11 @@
 			"header"
 			"body"
 			"footer"
+			;
+		gap: 10px;
 	}
 	
 	.sidebar { display: none !important; }
-
-	.header { display: block; }
 
 	.body {
 		padding: 15px;

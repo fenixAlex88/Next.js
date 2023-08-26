@@ -87,6 +87,10 @@
 	line-height: 19px;
 }
 
+.rateTitle a {
+	color: var(--primary);
+}
+
 .description {
 	margin-bottom: 15px;
 
@@ -140,19 +144,10 @@
 	border-bottom: 1px dashed var(--gray-light);
 }
 
-.closed {
+.reviwes {
 	overflow: hidden;
 
-	max-height: 0;
-	padding: 0;
-}
-
-.opened {
-	max-width: auto;
 	padding: 30px;
-}
-
-.reviews{
 }
 
 @media (width <= 1320px){

@@ -3,44 +3,42 @@ import styles from "./Search.module.css";
 import cn from "classnames";
 import { Button, Input } from "..";
 import { useState } from "react";
-import SearchIcon from './search.svg';
+import SearchIcon from "./search.svg";
 import { useRouter } from "next/router";
 
-export const Search = ({
-   className,
-  ...props
-}: SearchProps): JSX.Element => {
-  const [search, setSearch] = useState<string>('');
+export const Search = ({ className, ...props }: SearchProps): JSX.Element => {
+  const [search, setSearch] = useState<string>("");
   const router = useRouter();
 
-const searchHandler = (): void => {
-  router.push({
-    pathname: '/search',
-    query: {
-      q: search
-    }
-  });
-  setSearch('');
-};
+  const searchHandler = (): void => {
+    router.push({
+      pathname: "/search",
+      query: {
+        q: search,
+      },
+    });
+    setSearch("");
+  };
 
-const handleKeyDown = (e: KeyboardEvent): void => {
-  if (e.key === 'Enter') searchHandler();
-};
+  const handleKeyDown = (e: KeyboardEvent): void => {
+    if (e.key === "Enter") searchHandler();
+  };
 
   return (
-    <div
-      className={cn(styles.search, className)}
-      {...props}
-    >
-      <Input 
-      className={styles.input}
+    <div className={cn(styles.search, className)} {...props}>
+      <Input
+        className={styles.input}
         placeholder="Поиск..."
         value={search}
-        onChange={(e)=>setSearch(e.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
         onKeyDown={handleKeyDown}
       />
-      <Button appearance="primary" className={styles.button} onClick={searchHandler}>
-        <SearchIcon/>
+      <Button
+        appearance="primary"
+        className={styles.button}
+        onClick={searchHandler}
+      >
+        <SearchIcon />
       </Button>
     </div>
   );

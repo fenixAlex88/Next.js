@@ -6,6 +6,7 @@ import { firstLevelMenu } from "@/helpers/helpers";
 import { ParsedUrlQuery } from "querystring";
 import { useContext, useEffect } from "react";
 import { AppContext } from "@/context/app.context";
+import { API } from '@/helpers/api';
 
 function Type({ menu, firstCategory }: TypeProps): JSX.Element {
   const { setMenu } = useContext(AppContext);
@@ -37,12 +38,9 @@ export const getStaticProps: GetStaticProps<TypeProps> = async ({
       notFound: true,
     };
   const firstCategory = firstCategoryItem.id;
-  const { data: menu } = await axios.post<MenuItem[]>(
-    process.env.NEXT_PUBLIC_DOMAIN + "/api/top-page/find",
-    {
-      firstCategory,
-    }
-  );
+  const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
+    firstCategory,
+  });
 
   return {
     props: {

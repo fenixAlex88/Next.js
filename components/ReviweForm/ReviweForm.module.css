@@ -11,7 +11,9 @@
 
 .description {
 	grid-column: start / end;
+}
 
+.description textarea {
 	height: 76px;
 
 	resize: none;
@@ -35,7 +37,7 @@
 	gap: 20px;
 }
 
-.success {
+.panel {
 	position: relative;
 
 	margin-top: 20px;
@@ -43,6 +45,14 @@
 
 	border-radius: 5px;
 	background: var(--green-light);
+}
+
+.success {
+	background: var(--green-light);
+}
+
+.error {
+	background: var(--red-light);
 }
 
 .successTitle{
@@ -55,6 +65,10 @@
 	right: 20px;
 
 	cursor: pointer;
+}
+
+.error .close path{
+	stroke: var(--red);
 }
 
 @media (width <= 1100px) {
