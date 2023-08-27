@@ -11,6 +11,7 @@ import { useState } from "react";
 
 export const ReviweForm = ({
   productId,
+  isOpened,
   className,
   ...props
 }: ReviweFormProps): JSX.Element => {
@@ -20,6 +21,7 @@ export const ReviweForm = ({
     handleSubmit,
     formState: { errors },
     reset,
+    clearErrors,
   } = useForm<IReviewForm>();
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [isError, setIsError] = useState<string>();
@@ -50,6 +52,8 @@ export const ReviweForm = ({
           })}
           placeholder="Имя"
           error={errors.name}
+          tabIndex={isOpened ? 0 : -1}
+          aria-invalid={!!errors.name}
         />
         <Input
           {...register("title", {
@@ -58,6 +62,8 @@ export const ReviweForm = ({
           className={styles.title}
           placeholder="Заголовок отзыва"
           error={errors.title}
+          tabIndex={isOpened ? 0 : -1}
+          aria-invalid={!!errors.title}
         />
         <div className={styles.rating}>
           <span>Оценка:</span>
@@ -72,6 +78,7 @@ export const ReviweForm = ({
                 ref={field.ref}
                 setRating={field.onChange}
                 error={errors.rating}
+                tabIndex={isOpened ? 0 : -1}
               />
             )}
           />
@@ -83,9 +90,18 @@ export const ReviweForm = ({
           className={styles.description}
           placeholder="Текст отзыва"
           error={errors.description}
+          tabIndex={isOpened ? 0 : -1}
+          aria-label="Текст отзыва"
+          aria-invalid={!!errors.description}
         />
         <div className={styles.submit}>
-          <Button appearance="primary">Отправить</Button>
+          <Button
+            appearance="primary"
+            tabIndex={isOpened ? 0 : -1}
+            onClick={() => clearErrors}
+          >
+            Отправить
+          </Button>
           <span className={styles.info}>
             * Перед публикацией отзыв пройдет предварительную модерацию и
             проверку
@@ -93,21 +109,30 @@ export const ReviweForm = ({
         </div>
       </div>
       {isSuccess && (
-        <div className={cn(styles.success, styles.panel)}>
+        <div className={cn(styles.success, styles.panel)} role="alert">
           <div className={styles.successTitle}>Ваш вызов отправлен</div>
           <div className={styles.successDescription}>
             Спасибо, ваш отзыв будет опубликован после проверки.
           </div>
-          <CloseIcon
-            className={styles.close}
+          <button
             onClick={() => setIsSuccess(false)}
-          />
+            className={styles.close}
+            aria-label="Закрыть оповещение"
+          >
+            <CloseIcon />
+          </button>
         </div>
       )}
       {isError && (
-        <div className={cn(styles.error, styles.panel)}>
+        <div className={cn(styles.error, styles.panel)} role="alert">
           Что-то пошло не так, попобуйте обновить страницу.
-          <CloseIcon className={styles.close} onClick={() => setIsError(undefined)} />
+          <button
+            onClick={() => setIsError(undefined)}
+            className={styles.close}
+            aria-label="Закрыть оповещение"
+          >
+            <CloseIcon />
+          </button>
         </div>
       )}
     </form>

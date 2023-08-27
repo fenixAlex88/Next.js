@@ -16,11 +16,33 @@
 	grid-area: header; 
 }
 
-.body {	grid-area: body; }
+.body {	
+	grid-area: body;
+
+	outline: none;
+}
 
 .sidebar { grid-area: sidebar; }
 
 .footer { grid-area: footer; }
+
+.skilLink {
+	position: fixed;
+	top: 0;
+	left: 100px;
+
+	display: block;
+	overflow: hidden;
+
+	height: 0;
+
+	color: var(--white);
+	background: var(--primary);
+}
+
+.displayed {
+	height: auto;
+}
 
 @media (width <= 765px) {
 	.wrapper {

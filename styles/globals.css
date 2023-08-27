@@ -18,6 +18,15 @@ a {
 	color: inherit;
 }
 
+.visualyHidden {
+	position: absolute;
+
+	overflow: hidden;
+
+	width: 0;
+	height: 0;
+}
+
 :root {
 	--font-famaly: 'Noto Sans', sans-serif;
 	--black: #3B434E;

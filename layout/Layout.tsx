@@ -3,15 +3,38 @@ import styles from "./Layout.module.css";
 import { Header } from "./Header/Header";
 import { Sidebar } from "./Sidebar/Sidebar";
 import { Footer } from "./Footer/Footer";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState, KeyboardEvent, useRef } from 'react';
 import { AppContextProvider, IAppContext } from '@/context/app.context';
+import cn from 'classnames';
 
 export const Layout = ({ children }: LayoutProps): JSX.Element => {
+    const [isSkipLinkDisplayed, setIsSkipLinkDisplayed] = useState<boolean>(false);
+    const bodyRef = useRef<HTMLDivElement>(null);
+    const skipContantAction = (key: KeyboardEvent): void => {
+        if (key.code == "Space" || key.code == "Enter") {
+          key.preventDefault();
+          bodyRef.current?.focus();
+        }
+        setIsSkipLinkDisplayed(false);
+    };
+
   return (
     <div className={styles.wrapper}>
+      <a
+        onFocus={() => setIsSkipLinkDisplayed(true)}
+        tabIndex={1}
+        className={cn(styles.skilLink, {
+          [styles.displayed]: isSkipLinkDisplayed,
+        })}
+        onKeyDown={skipContantAction}
+      >
+        Сразу к содержанию
+      </a>
       <Header className={styles.header} />
       <Sidebar className={styles.sidebar} />
-      <div className={styles.body}>{children}</div>
+      <main className={styles.body} ref={bodyRef} tabIndex={0} role='main'>
+        {children}
+      </main>
       <Footer className={styles.footer} />
     </div>
   );

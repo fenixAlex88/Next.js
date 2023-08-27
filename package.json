@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prepare": "husky install",
     "dev": "next dev",
     "debug": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
@@ -24,6 +25,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
+    "react-yandex-metrika": "^2.6.0",
     "typescript": "5.1.6"
   },
   "devDependencies": {
@@ -32,6 +34,7 @@
     "@typescript-eslint/parser": "^6.2.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.46.0",
+    "husky": "^8.0.3",
     "stylelint": "^15.10.2",
     "stylelint-config-standard": "^34.0.0",
     "stylelint-order": "^6.0.3",
