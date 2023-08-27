@@ -7,7 +7,7 @@ import axios from "axios";
 import { MenuItem } from "@/interfaces/menu.intervace";
 import { API } from '@/helpers/api';
 
-function Home({ menu }: HomeProps): JSX.Element {
+function Home(): JSX.Element {
   const [counter, setCounter] = useState<number>(0);
   const [rating, setRating] = useState<number>(0);
   return (

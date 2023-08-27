@@ -1,13 +1,14 @@
 import { DOMAIN } from '@/helpers/api';
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import Router from 'next/router';
 import Head from "next/head";
 import ym, { YMInitializer } from 'react-yandex-metrika';
 
 export default function App({ Component, pageProps, router }: AppProps): JSX.Element {
-  router.events?.on('routeChangeComplete', (url: string)=>{
-    if (typeof window !== 'undefined'){
-      ym('hit', url);
+  Router.events.on("routeChangeComplete", (url: string) => {
+    if (typeof window !== "undefined") {
+      ym("hit", url);
     }
   });
 
